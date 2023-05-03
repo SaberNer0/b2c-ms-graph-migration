@@ -12,8 +12,9 @@ namespace b2c_ms_graph
         public static async Task BulkCreate(AppSettings config, GraphServiceClient graphClient)
         {
             // Get the users to import
-            string appDirectoryPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string dataFilePathCsv = Path.Combine(appDirectoryPath, config.UsersFileNameCsv);
+            string workingDirectory = Environment.CurrentDirectory;
+            string projectDirectory = System.IO.Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string dataFilePathCsv = Path.Combine(projectDirectory, config.UsersFileNameCsv);
 
             // Verify and notify on file existence
             if (!File.Exists(dataFilePathCsv))
